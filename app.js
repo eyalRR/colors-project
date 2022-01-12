@@ -8,8 +8,12 @@ let initialColors;
 //Add event listeners
 sliders.forEach(slider => {
     slider.addEventListener("input", hslControls);
-})
-
+});
+colorDivs.forEach((div,index) => {
+    div.addEventListener("change", () =>{
+        updateTextUI(index);
+    });
+});
 
 
 
@@ -93,6 +97,18 @@ function hslControls(e){
         .set('hsl.l', brightness.value)
         .set('hsl.h', hue.value);
     colorDivs[index].style.backgroundColor = color;
+}
+function updateTextUI(index){
+    const activeDiv = colorDivs[index];
+    const color = chroma(activeDiv.style.backgroundColor);
+    const textHex = activeDiv.querySelector('h2');
+    const icons = activeDiv.querySelectorAll('.controls button');
+    textHex.innerText = color.hex();
+    //Check contrast
+    checkTextContrast(color, textHex);
+    icons.forEach(icon =>{
+        checkTextContrast(color, icon);
+    })
 }
 
 
