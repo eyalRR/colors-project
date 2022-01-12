@@ -30,7 +30,19 @@ function randomColors(){
         //Add the color to the bg
         div.style.backgroundColor = randomColor;
         hexText.innerText = randomColor;
+        //Check for contrast
+        checkTextContrast(randomColor, hexText);
     })
+}
+
+function checkTextContrast(color,text){
+    const luminance = chroma(color).luminance(); // how dark it is (0-1)
+    if(luminance > 0.5){
+        text.style.color = "black";
+    } else{
+        text.style.color = "white";
+    }
+
 }
 
 randomColors();
