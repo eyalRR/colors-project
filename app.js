@@ -9,6 +9,8 @@ const lockButton = document.querySelectorAll('.lock');
 const closeAdjustments = document.querySelectorAll('.close-adjustment');
 const sliderContainers = document.querySelectorAll('.sliders');
 let initialColors;
+//This is for local storages
+let savedPalettes = [];
 
 //Add event listeners
 generateBtn.addEventListener('click', randomColors);
@@ -210,6 +212,45 @@ function lockColor(button){
         lockIcon.innerHTML = '<i class="fas fa-lock-open"></i>';
 
     }
+}
+
+//Implement Save to palette and local storage Stuff
+const saveBtn = document.querySelector('.save');
+const submitSave = document.querySelector('.submit-save');
+const closeSave = document.querySelector('.close-save');
+const saveContainer = document.querySelector('.save-container');
+const saveInput = document.querySelector('.save-name');
+
+//Event listeners
+saveBtn.addEventListener('click', openPalette);
+closeSave.addEventListener('click', closePalette );
+submitSave.addEventListener('click', savePalette );
+
+//Functions
+function openPalette(e) {
+    const popup = saveContainer.children[0];
+    saveContainer.classList.add('active');
+    popup.classList.add('active');
+}
+function closePalette(e) {
+    const popup = saveContainer.children[0];
+    saveContainer.classList.remove('active');
+    popup.classList.remove('active');
+}
+function savePalette(e){
+    saveContainer.classList.remove('active');
+    popup.classList.remove('active');
+    const name = saveInput.value;
+    const colors = [];
+    currentHexes.forEach(hex => {
+        colors.push(hex.innerText);
+    });
+    //Generate object
+    let paletteNr = savedPalettes.length;
+    const paletteObj = {name, colors, nr:paletteNr};
+    savedPalettes.push(paletteObj);
+    console.log(savedPalettes);
+
 }
 
 randomColors();
