@@ -67,13 +67,26 @@ svg {
   flex-direction: column;
 }
 
+.panel-dad {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 20vh;
+}
+.clear-panel {
+  width: 20%;
+  margin: 1rem;
+}
 .panel {
   display: flex;
   align-items: center;
   justify-content: space-evenly;
   height: 20vh;
+  width: 80%;
+  margin-right: 4rem;
 }
-.panel button {
+.panel button,
+.panel-dad button {
   font-size: 1.2em;
   margin: 1rem 0;
   padding: 1rem 2rem;
@@ -82,6 +95,9 @@ svg {
   color: white;
   border-radius: 1rem;
   cursor: pointer;
+}
+.clear-panel button {
+  background: rgb(111, 15, 15);
 }
 .panel p {
   font-size: 1.2rem;
@@ -116,7 +132,8 @@ input[type="range"] {
 
 .copy-container,
 .save-container,
-.library-container {
+.library-container,
+.clear-container {
   position: fixed;
   top: 0%;
   left: 0%;
@@ -132,7 +149,8 @@ input[type="range"] {
 }
 .copy-popup,
 .save-popup,
-.library-popup {
+.library-popup,
+.clear-popup {
   background: white;
   display: flex;
   flex-direction: column;
@@ -146,23 +164,23 @@ input[type="range"] {
 }
 .copy-popup h4,
 .save-popup h4,
-.library-popup h4 {
+.library-popup h4,
+.clear-popup h4 {
   font-size: 2rem;
   padding: 2rem;
 }
 .copy-container.active,
 .save-container.active,
-.library-container.active {
+.library-container.active,
+.clear-container.active {
   opacity: 1;
   pointer-events: all;
 }
-.library-container.active {
-  opacity: 1;
-  pointer-events: all;
-}
+
 .copy-popup.active,
 .save-popup.active,
-.library-popup.active {
+.library-popup.active,
+.clear-popup.active {
   transform: translateY(0rem);
 }
 

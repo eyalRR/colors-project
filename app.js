@@ -223,6 +223,9 @@ let saveInput = document.querySelector('.save-name');
 const libraryContainer = document.querySelector('.library-container');
 const libraryBtn = document.querySelector('.library');
 const closeLibraryBtn = document.querySelector('.close-library');
+const clearBtn = document.querySelector('.clear');
+const clearContainer = document.querySelector('.clear-container');
+
 
 //Event listeners
 saveBtn.addEventListener('click', openPalette);
@@ -230,8 +233,32 @@ closeSave.addEventListener('click', closePalette );
 submitSave.addEventListener('click', savePalette );
 libraryBtn.addEventListener('click', openLibrary);
 closeLibraryBtn.addEventListener('click', closeLibrary);
+clearBtn.addEventListener('click', clearStorage);
+clearContainer.addEventListener('transitionend', () =>{
+    const popup = clearContainer.children[0];
+    popup.classList.remove('active');
+    clearContainer.classList.remove('active');
+})
+
 
 //Functions
+function clearStorage(){
+    const popup = clearContainer.children[0];
+    clearContainer.classList.add('active');
+    popup.classList.add('active');
+    //Delete the palettes from Library
+    let palettes = document.querySelectorAll('.custom-palette');
+    if(palettes === 'null'){
+        //Do nothing
+    } else{
+        palettes.forEach( palette => {
+            palette.remove();
+        });
+    }
+    //Delete local storage
+    localStorage.clear();
+}
+
 function openPalette(e) {
     const popup = saveContainer.children[0];
     saveContainer.classList.add('active');
@@ -252,7 +279,7 @@ function savePalette(e){
     });
     //Generate object
     let paletteNr;
-    const paletteObjects = JSON.parse(localStorage.getItem('paletteObjects'));
+    const paletteObjects = JSON.parse(localStorage.getItem('palettes'));
     if(paletteObjects){
         paletteNr = paletteObjects.length;
     } else{
@@ -263,6 +290,7 @@ function savePalette(e){
     //Save to LocalStorage
     savetoLocal(paletteObj);
     saveInput.value = '';
+
     //Generate the palette for Library
     const palette = document.createElement('div');
     palette.classList.add('custom-palette');
@@ -370,6 +398,6 @@ function getLocal(){
     }
 }
 
-//localStorage.clear();
+
 getLocal();
 randomColors();
